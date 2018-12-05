@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
+import TodoInput from './TodoInput'
 import Todos from './Todos'
-import TodoInputContainer from '../containers/TodoInputContainer';
+import { connect } from 'react-redux';
+import TodoInputContainer from '../container/TodoInputContainer';
 
-export default class TodoList extends Component {
-  componentDidMount() {
-    fetch("http://localhost:8080/api/todos", {mode: 'cors'})
-      .then(res => res.json())
-      .then(res => {
-        this.props.dispatch({
-          type: "UPDATE_TODOS",
-          payload: res._embedded.todos
-        })
-      })
-  }
+class TodoList extends Component {
+  state = {todos: []};
   render() {
     return (
       <div>
@@ -22,3 +15,8 @@ export default class TodoList extends Component {
     )
   }
 }
+const mapStateToProps = state =>({
+  todos: state.todos 
+})
+
+export default connect(mapStateToProps)(TodoList)
