@@ -2,7 +2,8 @@ import {connect} from "react-redux";
 import Todos from "../components/Todos.js"
 
 const mapStateToProps = state =>({ 
-  todos: state.todos
+  todos: state.todos,
+  checked: state.isOnlyActive
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -12,7 +13,9 @@ const mapDispatchToProps = (dispatch) => ({
       status = "active"
     }
     else
+    {
       status = "completed"
+    }
     fetch("http://localhost:8080/api/todos/" + todo.id, {
       mode: 'cors',
       method: 'PUT', 

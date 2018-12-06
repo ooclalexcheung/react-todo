@@ -1,11 +1,12 @@
 const initialState = {
-    todos : []
+    todos : [],
+    isOnlyActive: false
 }
 
 export default (state = initialState, action) =>{
     switch(action.type){
     case "ADD_TODO":
-    
+        
         return {todos: [...state.todos, action.payload]};
     case "TOGGLE_TODO":
 		let result = state.todos.map(todo => {
@@ -14,7 +15,13 @@ export default (state = initialState, action) =>{
 			else
 				return todo
 		})
-		return {todos:result}
+        return {todos:result}
+    case "SET_FILTER":{
+        return {
+            ...state,
+            isOnlyActive: action.payload
+        }
+    }
 	
 
     default:
